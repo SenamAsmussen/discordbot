@@ -18,4 +18,4 @@
 Configure Git to use the provided template:
 
    ```bash
-   git config commit.template commit-template.txt
+   git config commit.template .github/commit-template.txt

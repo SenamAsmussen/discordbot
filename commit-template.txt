@@ -1,5 +1,0 @@
-type: subject
-
-A brief description of what this commit covers
-
-Issue: #issue-number
