@@ -1,0 +1,30 @@
+name: Branch Protection
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  protect-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Protect main branch
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/branches/main/protection \
+            --input - <<EOF
+          {
+            "required_pull_request_reviews": {
+              "required_approving_review_count": 0,
+              "dismiss_stale_reviews": true,
+              "require_code_owner_reviews": false
+            },
+            "enforce_admins": true,
+            "required_status_checks": null,
+            "restrictions": null
+          }
+          EOF
+        env:
+          GH_TOKEN: ${{ secrets.MY_TOKEN }}
